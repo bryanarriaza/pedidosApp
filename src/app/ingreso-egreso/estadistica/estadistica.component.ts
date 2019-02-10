@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.reducer';
+// import { AppState } from 'src/app/app.reducer';
 import { Subscription } from 'rxjs';
 import { IngresoEgreso } from '../ingreso-egreso.model';
+import * as fromIngresoEgresoState from '../ingreso-egreso.reducer';
 
 @Component({
   selector: 'app-estadistica',
@@ -19,7 +20,7 @@ export class EstadisticaComponent implements OnInit {
   public doughnutChartLabels: string[] = ['Ingresos', 'Egresos'];
   public doughnutChartData: number[] = [];
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<fromIngresoEgresoState.AppState>) {}
 
   ngOnInit() {
     this.estadisticaSubscription = this.store
