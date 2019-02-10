@@ -63,6 +63,11 @@ export class IngresoEgresoService {
       });
   }
 
+  borrarIngresoEgreso(item: IngresoEgreso) {
+    const user = this.authService.getUsuario();
+    return this.afDB.doc(`${user.uid}/ingresos-egresos/items/${item.uid}`).delete();
+  }
+
   cancelarSubscriptions() {
     this.ingresoEgresoListerSubscription.unsubscribe();
     this.ingresoEgresoItemsSubscription.unsubscribe();
