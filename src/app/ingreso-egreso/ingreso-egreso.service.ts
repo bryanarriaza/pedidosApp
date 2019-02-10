@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 // NgRx
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
-import { SetItemsAction } from './ingreso-egreso.actions';
+import { SetItemsAction, UnsetItemsAction } from './ingreso-egreso.actions';
 
 // Firebase
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -65,11 +65,14 @@ export class IngresoEgresoService {
 
   borrarIngresoEgreso(item: IngresoEgreso) {
     const user = this.authService.getUsuario();
-    return this.afDB.doc(`${user.uid}/ingresos-egresos/items/${item.uid}`).delete();
+    return this.afDB
+      .doc(`${user.uid}/ingresos-egresos/items/${item.uid}`)
+      .delete();
   }
 
   cancelarSubscriptions() {
     this.ingresoEgresoListerSubscription.unsubscribe();
     this.ingresoEgresoItemsSubscription.unsubscribe();
+    this.store.dispatch(new UnsetItemsAction());
   }
 }
